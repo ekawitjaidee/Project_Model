@@ -2,12 +2,8 @@ import pandas as pd
 import numpy as np
 
 #Technical-analysis
-from ta.trend import ADXIndicator
-from ta.trend import AroonIndicator
-from ta.trend import CCIIndicator
-
-from ta.momentum import StochRSIIndicator
-from ta.momentum import AwesomeOscillatorIndicator
+from ta.trend import ADXIndicator, AroonIndicator, CCIIndicator
+from ta.momentum import StochRSIIndicator, AwesomeOscillatorIndicator
 
 from ta.volume import OnBalanceVolumeIndicator
 
