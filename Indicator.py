@@ -19,7 +19,10 @@ Votatility ความผันผวนของราคา
 
 class Indicator():
 
-  def MACD(self,df):#trend
+  def MACD(self,df):#trend 
+    '''
+    MACD range(-inf,inf)
+    '''
     df_MACD = df.copy()
     df_MACD['EWMA-5'] = df_MACD['Close'].ewm(span=5).mean()
     df_MACD['EWMA-12'] = df_MACD['Close'].ewm(span=12).mean()
@@ -45,6 +48,9 @@ class Indicator():
     return df
   
   def STOCHRSI(self,df):#momentum
+    '''
+    data range (0,100)
+    '''
     df_STRSI = df.copy()
     strsi = StochRSIIndicator(df['Close'],n=14,d1=3,d2=3)
     df['storsi'] = strsi.stochrsi()
@@ -57,6 +63,9 @@ class Indicator():
     return df
 
   def AROON(self,df):#trend
+    '''
+    data range (0%,100%)
+    '''
     df_AROON = df.copy()
     aroon = AroonIndicator(df['Close'])
     df['aroon_up'] = aroon.aroon_up()
@@ -65,6 +74,9 @@ class Indicator():
     return df
 
   def ATR(self,df):#Volatility
+    '''
+    data range(0,inf)
+    '''
     df_ATR = df.copy()
     df_ATR['H(t) - L(t)'] = df['High'] - df['Low']
     df_ATR['H(t) - C(Y)'] = df['High'] - df['Close'].shift(1)
@@ -75,18 +87,27 @@ class Indicator():
     return df
   
   def CCI(self,df):#trend
+    '''
+    data range(-inf,inf)
+    '''
     df_CCI = df.copy()
     cci = CCIIndicator(df['High'],df['Low'],df['Close'])
     df['CCI'] = cci.cci()
     return df
 
   def OBV(self,df):
+    '''
+    data range(0,inf)
+    '''
     df_OBV = df.copy()
     obv = OnBalanceVolumeIndicator(df['Close'],df['Volume'])
     df['OBV'] = obv.on_balance_volume()
     return df
 
   def AO(self,df):
+    '''
+    data range(-inf,inf)
+    '''
     df_AO = df.copy()
     AO = AwesomeOscillatorIndicator(df['High'],df['Low'])
     df['AO'] = AO.ao()
