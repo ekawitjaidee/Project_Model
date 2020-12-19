@@ -1,6 +1,6 @@
 import pandas as pd
 
-data = pd.read_csv('train.csv',index_col=0)
+data = pd.read_csv('test1.csv')
 
 data.loc[data['Signal'] == 'wait ot hold', 'Signal'] = 'wait or hold'
 data.loc[data['Signal'] == 'buy', 'Signal'] = 0

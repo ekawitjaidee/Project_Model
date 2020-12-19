@@ -38,8 +38,8 @@ class Indicator():
   def DMI(self,df):#trend
     df_DMI = df.copy()
     adxi = ADXIndicator(df['High'],df['Low'],df['Close'],14,False)
-    df['+DI'] = adxi.adx_pos()
-    df['-DI'] = adxi.adx_neg()
+    df['plusDI'] = adxi.adx_pos()
+    df['minusDI'] = adxi.adx_neg()
     df['adx'] = adxi.adx()
 
     # df['DMI'] = np.where((df_DMI['+DI']>df_DMI['-DI'])&(df_DMI['+DI'].shift()<df_DMI['-DI'].shift()),'buy',
@@ -47,20 +47,20 @@ class Indicator():
     
     return df
   
-  def STOCHRSI(self,df):#momentum
-    '''
-    data range (0,100)
-    '''
-    df_STRSI = df.copy()
-    strsi = StochRSIIndicator(df['Close'],n=14,d1=3,d2=3)
-    df['storsi'] = strsi.stochrsi()
-    df['%K'] = strsi.stochrsi_k()
-    df['%D'] = df['%K'].ewm(span=3).mean()
+  # def STOCHRSI(self,df):#momentum
+  #   '''
+  #   data range (0,100)
+  #   '''
+  #   df_STRSI = df.copy()
+  #   strsi = StochRSIIndicator(df['Close'],d1=3,d2=3)
+  #   df['storsi'] = strsi.stochrsi()
+  #   df['%K'] = strsi.stochrsi_k()
+  #   df['%D'] = df['%K'].ewm(span=3).mean()
 
-    # df['STOCHRSI']  = np.where((df_STRSI['%K']>df_STRSI['%D'])&(df_STRSI['%K'].shift()<df_STRSI['%D'].shift())&(df_STRSI['%K']<20),'buy',
-    #                             (np.where((df_STRSI['%K'] < df_STRSI['%D']) & (df_STRSI['%K'].shift()>df_STRSI['%D'].shift()) & (df_STRSI['%K']>80),'sell','wait or hold')))
+  #   # df['STOCHRSI']  = np.where((df_STRSI['%K']>df_STRSI['%D'])&(df_STRSI['%K'].shift()<df_STRSI['%D'].shift())&(df_STRSI['%K']<20),'buy',
+  #   #                             (np.where((df_STRSI['%K'] < df_STRSI['%D']) & (df_STRSI['%K'].shift()>df_STRSI['%D'].shift()) & (df_STRSI['%K']>80),'sell','wait or hold')))
 
-    return df
+  #   return df
 
   def AROON(self,df):#trend
     '''
@@ -104,11 +104,11 @@ class Indicator():
     df['OBV'] = obv.on_balance_volume()
     return df
 
-  def AO(self,df):
-    '''
-    data range(-inf,inf)
-    '''
-    df_AO = df.copy()
-    AO = AwesomeOscillatorIndicator(df['High'],df['Low'])
-    df['AO'] = AO.ao()
-    return df
+  # def AO(self,df):
+  #   '''
+  #   data range(-inf,inf)
+  #   '''
+  #   df_AO = df.copy()
+  #   AO = AwesomeOscillatorIndicator(df['High'],df['Low'])
+  #   df['AO'] = AO.ao()
+  #   return df
