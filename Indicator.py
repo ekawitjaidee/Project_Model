@@ -62,6 +62,23 @@ class Indicator():
 
   #   return df
 
+  def RSI(self,df):
+    def computeRSI (data, time_window):
+      diff = data.diff(1).dropna()        
+      up_chg = 0 * diff
+      down_chg = 0 * diff
+      up_chg[diff > 0] = diff[ diff>0 ]
+      down_chg[diff < 0] = diff[ diff < 0 ]
+      up_chg_avg   = up_chg.ewm(com=time_window-1 , min_periods=time_window).mean()
+      down_chg_avg = down_chg.ewm(com=time_window-1 , min_periods=time_window).mean()
+      rs = abs(up_chg_avg/down_chg_avg)
+      rsi = 100 - 100/(1+rs)
+      return rsi
+    # df['RSI-7'] = computeRSI(df['Close'],12)
+    # df['RSI-14'] = computeRSI(df['Close'], 26)
+    df['RSI'] = computeRSI(df['Close'],14)
+    return df
+
   def AROON(self,df):#trend
     '''
     data range (0%,100%)
