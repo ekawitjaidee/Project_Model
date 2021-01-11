@@ -3,7 +3,7 @@ import numpy as np
 
 #Technical-analysis
 from ta.trend import ADXIndicator, AroonIndicator, CCIIndicator
-from ta.momentum import StochRSIIndicator, AwesomeOscillatorIndicator
+from ta.momentum import StochRSIIndicator, AwesomeOscillatorIndicator, StochasticOscillator, WilliamsRIndicator
 
 from ta.volume import OnBalanceVolumeIndicator
 
@@ -74,10 +74,23 @@ class Indicator():
       rs = abs(up_chg_avg/down_chg_avg)
       rsi = 100 - 100/(1+rs)
       return rsi
-    # df['RSI-7'] = computeRSI(df['Close'],12)
-    # df['RSI-14'] = computeRSI(df['Close'], 26)
+    df['RSI-7'] = computeRSI(df['Close'],7)
+    df['RSI-14'] = computeRSI(df['Close'], 14)
     df['RSI'] = computeRSI(df['Close'],14)
     return df
+
+  def STOCHASTIC(self,df):
+    df_STOCH = df.copy()
+    stoch = StochasticOscillator(df['High'],df['Low'],df['Close'])
+    df['%K'] = stoch.stoch()
+    df['%D'] = stoch.stoch_signal()
+    return df
+
+  def WILLIANSR():
+    williamsr = WilliamsRIndicator(df['High'],df['Low'],df['Close'])
+    df['%R'] = williamsr.williams_r()
+    return df
+
 
   def AROON(self,df):#trend
     '''
@@ -129,3 +142,4 @@ class Indicator():
   #   AO = AwesomeOscillatorIndicator(df['High'],df['Low'])
   #   df['AO'] = AO.ao()
   #   return df
+
