@@ -24,12 +24,16 @@ def Check_nan_eachfile(fname,s):
     for index, row in df.iterrows():
         if row['Signal'] != 'buy' and row['Signal'] != 'sell' and row['Signal'] != 'wait or hold':
             print(index ,fname)
-            s.add(fname)
+            s.append(fname)
 
         
-datalist = [f for f in glob.glob("GT/*.csv")]
-s = {"j"}
+datalist = [f for f in glob.glob("Dataset/*.csv")]
+s = []
 for stname in datalist:
-    Check_nan_eachfile(stname,s)
+    try:
+        Check_nan_eachfile(stname,s)
+        print('pass',stname)
+    except:
+        print('Fail',stname)
 print('---------------------done-----------------')
 print(s)
